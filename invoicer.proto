@@ -1,0 +1,22 @@
+syntax="proto3";
+option go_package="grpc-demo/invoicer";
+
+message CreateRequest {
+    int64 amount = 1;
+    string currency = 2;
+    string from= 3;
+    string to = 4;
+}
+
+message CreateResponse {
+    string pdf = 1;
+    string docx = 2;
+}
+
+service Invoicer {
+    rpc Create(CreateRequest) returns (CreateResponse); 
+    rpc ClientStreamTest(stream CreateRequest) returns (CreateResponse);
+    rpc ServerStreamTest(CreateRequest) returns (stream CreateResponse);
+    rpc BiDirectionalTest(stream CreateRequest) returns (stream CreateResponse);
+}
+
